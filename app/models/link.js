@@ -4,12 +4,21 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 
 
-var Link = mongoose.model('Link', db.urlSchema);
+var urlSchema = new mongoose.Schema({
+  url: String,
+  base_url: String,
+  code: String,
+  title: String,
+  visits: Number,
+  timestamp: Date
+});
 
-db.urlSchema.methods.initialize = function(){
+var Link = mongoose.model('Link', urlSchema);
+
+Link.prototype.initialize = function(){
   var shasum = crypto.createHash('sha1');
   shasum.update(this.url);
-  this.set('code', shasum.digest('hex').slice(0, 5));
+  this.code = shasum.digest('hex').slice(0, 5));
 };
 
 module.exports = Link;

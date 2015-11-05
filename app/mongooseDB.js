@@ -1,5 +1,5 @@
 var mongoose = require ('mongoose');
-mongoose.connect('mongodb://localhost')
+mongoose.connect('mongodb://localhost') // add name in
 
 var db = mongoose.connection;
 
@@ -10,20 +10,9 @@ db.once('open', function () {
 
 // db.once('open', function () {
   // schemas here
-db.urlSchema = new mongoose.Schema({
-  url: String,
-  base_url: String,
-  code: String,
-  title: String,
-  visits: Number,
-  timestamp: Date
-});
 
-db.userSchema = new mongoose.Schema({
-  username: String,
-  password: String,
-  timestamp: Date
-});
+
+
 
 // });
 
