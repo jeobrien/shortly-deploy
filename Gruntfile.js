@@ -57,11 +57,15 @@ module.exports = function(grunt) {
     },
 
     cssmin: {
-        // Add filespec list here
-      expand : true,
-      src : [ 'public/*.css', '!*.min.css' ],
-      dest : 'public/dist/',
-      ext : '.min.css'
+      target: {
+        files: [{
+          expand: true,
+          cwd: 'public',
+          src: ['*.css', '!*.min.css'],
+          dest: 'public/dist',
+          ext: '.min.css'
+        }]
+      }
     },
 
     watch: {
@@ -119,7 +123,7 @@ module.exports = function(grunt) {
   ]);
 
   // test, concat, uglify
-  grunt.registerTask('build', ['test', 'concat', 'uglify']);
+  grunt.registerTask('build', ['test', 'concat','cssmin', 'uglify']);
 
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
