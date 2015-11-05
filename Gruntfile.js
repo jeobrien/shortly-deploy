@@ -7,21 +7,20 @@ module.exports = function(grunt) {
         mangle: false
       },
       dist: {
-        src: ['app/**/*.js',
-              'lib/*.js',
+        src: [
               'public/client/*.js'],
         dest: 'public/dist/shortlyDeploy.js',
       }
     },
 
-    // mochaTest: {
-    //   test: {
-    //     options: {
-    //       reporter: 'spec'
-    //     },
-    //     src: ['test/**/*.js']
-    //   }
-    // },
+    mochaTest: {
+      test: {
+        options: {
+          reporter: 'spec'
+        },
+        src: ['test/**/*.js']
+      }
+    },
 
     nodemon: {
       dev: {
@@ -119,9 +118,9 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
 
   grunt.registerTask('test', [
-    'jshint'
+    'jshint', 'mochaTest'
   ]);
-// , 'mochaTest'
+
   // test, concat, uglify
   grunt.registerTask('build', ['test', 'concat','cssmin', 'uglify']);
 
