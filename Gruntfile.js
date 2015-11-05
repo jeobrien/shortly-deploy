@@ -14,14 +14,14 @@ module.exports = function(grunt) {
       }
     },
 
-    mochaTest: {
-      test: {
-        options: {
-          reporter: 'spec'
-        },
-        src: ['test/**/*.js']
-      }
-    },
+    // mochaTest: {
+    //   test: {
+    //     options: {
+    //       reporter: 'spec'
+    //     },
+    //     src: ['test/**/*.js']
+    //   }
+    // },
 
     nodemon: {
       dev: {
@@ -119,9 +119,9 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
 
   grunt.registerTask('test', [
-    'jshint', 'mochaTest'
+    'jshint'
   ]);
-
+// , 'mochaTest'
   // test, concat, uglify
   grunt.registerTask('build', ['test', 'concat','cssmin', 'uglify']);
 
