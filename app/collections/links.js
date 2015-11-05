@@ -1,5 +1,7 @@
 // NOTE: this file is not needed when using MongoDB
-var db = require('../config');
+
+var db = require('../mongooseDB');
+
 var Link = require('../models/link');
 
 var Links = new db.Collection();
