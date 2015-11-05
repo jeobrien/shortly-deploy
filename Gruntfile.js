@@ -6,6 +6,12 @@ module.exports = function(grunt) {
       options: {
         separator: ';',
       },
+      dist: {
+        src: ['app/**/*.js',
+              'lib/*.js',
+              'public/client/*.js'],
+        dest: 'public/dist/shortlyDeploy.js',
+      }
     },
 
     mochaTest: {
@@ -24,11 +30,21 @@ module.exports = function(grunt) {
     },
 
     uglify: {
+      my_target: {
+        files: {
+          'public/dist/shortlyDeploy.min.js': ['public/dist/shortlyDeploy.js']
+        }
+      }
     },
 
     jshint: {
       files: [
         // Add filespec list here
+        'app/**/*.js',
+        'lib/*.js',
+        'public/client/*.js',
+        'server-config.js',
+        'server.js'
       ],
       options: {
         force: 'true',
@@ -42,6 +58,10 @@ module.exports = function(grunt) {
 
     cssmin: {
         // Add filespec list here
+      expand : true,
+      src : [ 'public/*.css', '!*.min.css' ],
+      dest : 'public/dist/',
+      ext : '.min.css'
     },
 
     watch: {
@@ -63,6 +83,7 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+        command: 'git push azure master'
       }
     },
   });
@@ -94,15 +115,16 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
 
   grunt.registerTask('test', [
-    'mochaTest'
+    'jshint', 'mochaTest'
   ]);
 
-  grunt.registerTask('build', [
-  ]);
+  // test, concat, uglify
+  grunt.registerTask('build', ['test', 'concat', 'uglify']);
 
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
       // add your production server task here
+      grunt.task.run(['shell']);
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
@@ -110,7 +132,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('deploy', [
       // add your production server task here
-  ]);
-
+      'build', 'upload']);
 
 };

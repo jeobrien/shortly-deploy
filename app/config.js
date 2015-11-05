@@ -1,6 +1,6 @@
 var Bookshelf = require('bookshelf');
 var path = require('path');
-var host = process.env.IP || '127.0.0.1';
+var host = '127.0.0.1';
 
 var db = Bookshelf.initialize({
   client: 'sqlite3',
